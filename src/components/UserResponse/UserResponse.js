@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { QueCountContext } from "../ChatBox/ChatBox";
 
 const Response = styled.div`
   min-width: 60px;
@@ -13,9 +14,12 @@ const Response = styled.div`
 `;
 
 function UserResponse(props) {
+  //using the question number from global state using Context api and hooks
+  const quesConterContext = useContext(QueCountContext);
+  const questionNumber = quesConterContext.countQuestion;
   const responses = props.responses;
   const currRespIndex = props.currIdx;
-  const questionNumber = props.questionNumber;
+  //displaying user responses
   if (currRespIndex < questionNumber) {
     return <Response>{responses[currRespIndex]}</Response>;
   }

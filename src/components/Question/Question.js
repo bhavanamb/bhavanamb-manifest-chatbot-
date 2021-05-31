@@ -1,32 +1,21 @@
-import React from "react";
-import styled from "styled-components";
-
-const QuestionBubble = styled.div`
-  min-width: 60px;
-  max-width: 500px;
-  padding: 14px 18px;
-  margin: 6px 8px;
-  background-color: #efefef;
-  border-radius: 16px 16px 16px 0px;
-  border: 1px solid #666;
-  align-self: flex-start;
-`;
+import React, { useContext } from "react";
+import { QuestionBubble } from "./SystemStyles";
+import { QueCountContext } from "../ChatBox/ChatBox";
 
 function Question(props) {
+  //using the question number from global state using Context api and hooks
+  const quesConterContext = useContext(QueCountContext);
+  const questionNumber = quesConterContext.countQuestion;
   const question = props.currQuestion;
   const currRespIndex = props.currIdx;
-  const questionNumber = props.questionNumber;
-  const standardResponse = props.standardResponse;
+
+  //displaying question only if use has answered and current question
   if (currRespIndex <= questionNumber) {
-    if (standardResponse.length) {
-      return (
-        <>
-          <QuestionBubble>{standardResponse}</QuestionBubble>
-          <QuestionBubble>{question}</QuestionBubble>
-        </>
-      );
-    }
-    return <QuestionBubble>{question}</QuestionBubble>;
+    return (
+      <>
+        <QuestionBubble>{question}</QuestionBubble>
+      </>
+    );
   }
   return <></>;
 }
