@@ -1,0 +1,27 @@
+[
+  {
+    "question": "Tell me, do you have atleast 6 months of personal savings outside of your retirement accounts?",
+    "options": ["yes", "no"],
+    "standardResponse": ""
+  },
+  {
+    "question": "Some retirement plans allow you to take out loans. Is this feature important to you?",
+    "options": ["yes", "Not Really"],
+    "standardResponse": "Active investors prefer to frequently monitor their investment choice, adjust allocations, and follow the market. \\n  Passive investors like their investments to be managed for them."
+  },
+  {
+    "question": "Which one best describes you?",
+    "options": ["Active", "Passive"],
+    "standardResponse": "We are required by our provider to collect some identity information"
+  },
+  {
+    "question": "What is your Date of Birth?",
+    "options": ["Date", "Confirm"],
+    "standardResponse": "Thank you for walking me through your preferences, this will make it much easier for us to choose theright destination for you"
+  },
+  {
+    "question": "",
+    "options": ["Continue"],
+    "standardResponse": ""
+  }
+]

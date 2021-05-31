@@ -7,8 +7,7 @@ const Wrapper = styled.section`
   width: 100%;
   margin: auto auto;
   max-width: 867px;
-  height: 100vh;
-  border: 2px solid #ddd;
+  height: 100%;
   border-radius: 5px;
 `;
 
