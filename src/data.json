@@ -1,13 +1,13 @@
 [
   {
-    "question": "Tell me, do you have atleast 6 months of personal savings outside of your retirement accounts?",
+    "question": "Hi! I'm Henry, your personal transfer specialist \n Nice work deciding to consolidating your retirements accounts.  Choosing the right account can be hard. Luckily, I'm here to help! \n Tell me, do you have atleast 6 months of personal savings outside of your retirement accounts?",
     "options": ["yes", "no"],
     "standardResponse": ""
   },
   {
     "question": "Some retirement plans allow you to take out loans. Is this feature important to you?",
     "options": ["yes", "Not Really"],
-    "standardResponse": "Active investors prefer to frequently monitor their investment choice, adjust allocations, and follow the market. \\n  Passive investors like their investments to be managed for them."
+    "standardResponse": "There are 2 types of investors: \n Active investors prefer to frequently monitor their investment choice, adjust allocations, and follow the market. \n  Passive investors like their investments to be managed for them."
   },
   {
     "question": "Which one best describes you?",
@@ -16,11 +16,11 @@
   },
   {
     "question": "What is your Date of Birth?",
-    "options": ["Date", "Confirm"],
+    "options": ["Date"],
     "standardResponse": "Thank you for walking me through your preferences, this will make it much easier for us to choose theright destination for you"
   },
   {
-    "question": "",
+    "question": "End",
     "options": ["Continue"],
     "standardResponse": ""
   }

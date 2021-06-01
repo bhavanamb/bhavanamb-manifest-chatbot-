@@ -1,17 +1,6 @@
 import React, { useContext } from "react";
-import styled from "styled-components";
 import { QueCountContext } from "../ChatBox/ChatBox";
-
-const Response = styled.div`
-  min-width: 60px;
-  max-width: 500px;
-  padding: 14px 18px;
-  margin: 6px 8px;
-  background-color: #4e78f6;
-  border-radius: 16px 0px 16px 16px;
-  align-self: flex-end;
-  color: white;
-`;
+import { Response, EditOption } from "./ResponseStyles";
 
 function UserResponse(props) {
   //using the question number from global state using Context api and hooks
@@ -19,9 +8,33 @@ function UserResponse(props) {
   const questionNumber = quesConterContext.countQuestion;
   const responses = props.responses;
   const currRespIndex = props.currIdx;
+
+  //quesConterContext.counterDispatch("removeQuestion")
+
+  const alertUser = () => {
+    const confirmBox = window.confirm(
+      "Are you Sure? \n This will delete your answer and take you to previous step"
+    );
+    if (confirmBox === true) {
+      quesConterContext.counterDispatch({
+        type: "removeQuestion",
+        index: currRespIndex,
+      });
+    }
+  };
   //displaying user responses
   if (currRespIndex < questionNumber) {
-    return <Response>{responses[currRespIndex]}</Response>;
+    return (
+      <Response>
+        <EditOption
+          onClick={() => {
+            alertUser();
+          }}
+        />
+
+        {responses[currRespIndex]}
+      </Response>
+    );
   }
   return <></>;
 }

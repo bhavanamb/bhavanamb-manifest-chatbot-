@@ -3,7 +3,7 @@ import { ChoiceButton } from "./OptionStyles";
 import { QueCountContext, QuesLoadingContext } from "../ChatBox/ChatBox";
 import PageLoader from "../ChatBox/PageLoader";
 
-function ResponseButton(props) {
+function EndComponent(props) {
   //using the question number from global state
   const quesCounterContext = useContext(QueCountContext);
   const questionNumber = quesCounterContext.countQuestion;
@@ -11,20 +11,18 @@ function ResponseButton(props) {
   const handleClick = props.handleOptionClick;
   const currRespIndex = props.currIdx;
   const options = props.optionData;
-  // const loading = props.isLoading;
-  // const loadingStatus = props.setLoading;
-
   const [loadingContxt, setLoading] = useContext(QuesLoadingContext);
+
   // handling the user option click
   const handleButtonClick = (e) => {
     e.preventDefault();
-    quesCounterContext.counterDispatch({ type: "addQuestion" });
+    quesCounterContext.counterDispatch({ type: "resetQuestions" });
     handleClick(e.target.value, currRespIndex);
     setLoading(true);
   };
 
   //Displaying the options only for current question
-  if (currRespIndex === questionNumber && options.length) {
+  if (currRespIndex === questionNumber) {
     if (loadingContxt) {
       return <PageLoader />;
     }
@@ -47,4 +45,4 @@ function ResponseButton(props) {
   return <></>;
 }
 
-export default ResponseButton;
+export default EndComponent;

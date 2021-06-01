@@ -4,6 +4,9 @@ import Question from "../Question/Question";
 import UserResponse from "../UserResponse/UserResponse";
 import ResponseOptions from "../ResponseOptions/ResponseOptions";
 import SysResponse from "../SysResponse/SysResponse";
+import DateComponent from "../ResponseOptions/DateComponent";
+import EndComponent from "../ResponseOptions/EndComponent";
+
 import {
   ChatWrapper,
   AvatarImg,
@@ -19,15 +22,17 @@ import {
 //creating a context to track the question count
 export const QueCountContext = React.createContext();
 
+export const QuesLoadingContext = React.createContext([true, () => {}]);
+
 const initialCount = 0;
 
 //reducer function to render state based on the action
 const reducer = (state, action) => {
-  switch (action) {
+  switch (action.type) {
     case "addQuestion":
       return state + 1;
     case "removeQuestion":
-      return state - 1;
+      return action.index;
     case "resetQuestions":
       return initialCount;
     default:
@@ -37,8 +42,9 @@ const reducer = (state, action) => {
 
 const RenderConversation = (questionCount, dispatchCounter) => {
   const [userResponse, setResponse] = useState({});
-
   // on option click storing the user responses
+
+  const loadingHook = useState(true);
   const onOptionClick = (btnValue, currQuestionIdx) => {
     const respValue = {};
     respValue[currQuestionIdx] = btnValue;
@@ -52,35 +58,56 @@ const RenderConversation = (questionCount, dispatchCounter) => {
         counterDispatch: dispatchCounter,
       }}
     >
-      <div>
-        {data.map((obj, currIdx) => (
-          <div key={currIdx}>
-            <BubbleWrapper>
-              <Question
-                currIdx={currIdx}
-                currQuestion={obj.question}
-                standardResponse={obj.standardResponse}
-              />
-            </BubbleWrapper>
-            <OptionsWrapper>
-              <ResponseOptions
-                optionData={obj.options}
-                currIdx={currIdx}
-                handleOptionClick={onOptionClick}
-              />
-            </OptionsWrapper>
-            <BubbleWrapper>
-              <UserResponse responses={userResponse} currIdx={currIdx} />
-            </BubbleWrapper>
-            <BubbleWrapper>
-              <SysResponse
-                currIdx={currIdx}
-                standardResponse={obj.standardResponse}
-              />
-            </BubbleWrapper>
-          </div>
-        ))}
-      </div>
+      <QuesLoadingContext.Provider value={loadingHook}>
+        <div>
+          {data.map((obj, currIdx) => {
+            return currIdx !== data.length - 1 ? (
+              <div key={currIdx}>
+                <BubbleWrapper>
+                  <Question
+                    currIdx={currIdx}
+                    currQuestion={obj.question}
+                    standardResponse={obj.standardResponse}
+                  />
+                </BubbleWrapper>
+                <OptionsWrapper>
+                  {obj.options[0] !== "Date" ? (
+                    <ResponseOptions
+                      optionData={obj.options}
+                      currIdx={currIdx}
+                      handleOptionClick={onOptionClick}
+                    />
+                  ) : (
+                    <DateComponent
+                      currIdx={currIdx}
+                      handleOptionClick={onOptionClick}
+                    />
+                  )}
+                </OptionsWrapper>
+                <BubbleWrapper>
+                  <UserResponse responses={userResponse} currIdx={currIdx} />
+                </BubbleWrapper>
+                <BubbleWrapper>
+                  <SysResponse
+                    currIdx={currIdx}
+                    standardResponse={obj.standardResponse}
+                  />
+                </BubbleWrapper>
+              </div>
+            ) : (
+              <div key={currIdx}>
+                <OptionsWrapper>
+                  <EndComponent
+                    optionData={obj.options}
+                    currIdx={currIdx}
+                    handleOptionClick={onOptionClick}
+                  />
+                </OptionsWrapper>
+              </div>
+            );
+          })}
+        </div>
+      </QuesLoadingContext.Provider>
     </QueCountContext.Provider>
   );
 };
@@ -91,7 +118,9 @@ function ChatBox() {
     <ChatWrapper>
       <Header>
         <Title>Manifest</Title>
-        <MenuBar onClick={() => dispatchCounter("resetQuestions")}></MenuBar>
+        <MenuBar
+          onClick={() => dispatchCounter({ type: "resetQuestions" })}
+        ></MenuBar>
       </Header>
       <AvatarImg></AvatarImg>
       <BotName>
