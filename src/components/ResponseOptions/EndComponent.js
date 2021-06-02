@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { ChoiceButton } from "./OptionStyles";
 import { QueCountContext, QuesLoadingContext } from "../ChatBox/ChatBox";
-import PageLoader from "../ChatBox/PageLoader";
 
 function EndComponent(props) {
   //using the question number from global state
@@ -24,7 +23,7 @@ function EndComponent(props) {
   //Displaying the options only for current question
   if (currRespIndex === questionNumber) {
     if (loadingContxt) {
-      return <PageLoader />;
+      return null;
     }
     return (
       <>

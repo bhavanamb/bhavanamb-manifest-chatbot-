@@ -17,7 +17,7 @@ function SysResponse(props) {
     (props) => {
       setTimeout(() => {
         setLoading(false);
-      }, 2000);
+      }, 1000);
     },
     [loading]
   );

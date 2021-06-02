@@ -3,7 +3,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { QueCountContext, QuesLoadingContext } from "../ChatBox/ChatBox";
 import { ChoiceButton } from "./OptionStyles";
-import PageLoader from "../ChatBox/PageLoader";
 
 function DateComponent(props) {
   const [date, setDate] = useState(new Date());
@@ -26,7 +25,7 @@ function DateComponent(props) {
   };
   if (currRespIndex === questionNumber) {
     if (loadingContxt) {
-      return <PageLoader />;
+      return null;
     }
     return (
       <>

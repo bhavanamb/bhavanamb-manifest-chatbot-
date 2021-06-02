@@ -10,6 +10,9 @@ export const ChatWrapper = styled.section`
   height: 100%;
   width: 50vw;
   background: #f4f4f4;
+  @media (max-width: 768px) {
+    width: 100vw;
+  }
 `;
 
 export const AvatarImg = styled.div`
@@ -45,7 +48,7 @@ export const MenuBar = styled.div`
   @media (max-width: 480px) {
     width: 16px;
     height: 78px;
-    left: 65%;
+    left: 91%;
   }
 `;
 
