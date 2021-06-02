@@ -6,6 +6,7 @@ import ResponseOptions from "../ResponseOptions/ResponseOptions";
 import SysResponse from "../SysResponse/SysResponse";
 import DateComponent from "../ResponseOptions/DateComponent";
 import EndComponent from "../ResponseOptions/EndComponent";
+import SampleModal from "../Modal/SampleModal";
 
 import {
   ChatWrapper,
@@ -40,8 +41,9 @@ const reducer = (state, action) => {
   }
 };
 
-const RenderConversation = (questionCount, dispatchCounter) => {
+const RenderConversation = (questionCount, dispatchCounter, showModal) => {
   const [userResponse, setResponse] = useState({});
+
   // on option click storing the user responses
 
   const loadingHook = useState(true);
@@ -85,7 +87,11 @@ const RenderConversation = (questionCount, dispatchCounter) => {
                   )}
                 </OptionsWrapper>
                 <BubbleWrapper>
-                  <UserResponse responses={userResponse} currIdx={currIdx} />
+                  <UserResponse
+                    responses={userResponse}
+                    currIdx={currIdx}
+                    displayModal={showModal}
+                  />
                 </BubbleWrapper>
                 <BubbleWrapper>
                   <SysResponse
@@ -114,21 +120,49 @@ const RenderConversation = (questionCount, dispatchCounter) => {
 
 function ChatBox() {
   const [questionCount, dispatchCounter] = useReducer(reducer, initialCount);
+  const [showModal, setModal] = useState(false);
+  const [actionIdx, setActionIdx] = useState({});
+
+  //callback function to display modal
+  const showModalComp = (modalFlag, actionType, ansIdx) => {
+    let modifyChat = {};
+    modifyChat["action"] = actionType;
+    modifyChat["editIdx"] = ansIdx;
+    setActionIdx({ ...actionIdx, ...modifyChat });
+    setModal(modalFlag);
+  };
+
+  //on confirm calling the dispatchCounter for respective action
+  const modalConfrim = (modalStatus) => {
+    dispatchCounter({ type: actionIdx["action"], index: actionIdx["editIdx"] });
+    setModal(modalStatus);
+  };
+
+  const modalClose = (modalStatus) => {
+    setModal(modalStatus);
+  };
+
   return (
     <ChatWrapper>
       <Header>
         <Title>Manifest</Title>
         <MenuBar
-          onClick={() => dispatchCounter({ type: "resetQuestions" })}
+          onClick={() => {
+            showModalComp(true, "resetQuestions", 0);
+          }}
         ></MenuBar>
       </Header>
+
       <AvatarImg></AvatarImg>
       <BotName>
         Henry
         <br />
         <SubTitle>TRANSFER SPECIALIST</SubTitle>
       </BotName>
-      {RenderConversation(questionCount, dispatchCounter)}
+      {showModal ? (
+        <SampleModal onConfirm={modalConfrim} onModalClose={modalClose} />
+      ) : null}
+      {RenderConversation(questionCount, dispatchCounter, showModalComp)}
     </ChatWrapper>
   );
 }

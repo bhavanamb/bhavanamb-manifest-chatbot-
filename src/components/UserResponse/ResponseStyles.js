@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import EditImg from "../../assets/editIcon.png";
+import RegularFont from "../../fonts/SFUIText-Regular.ttf";
 
 export const Response = styled.div`
   min-width: 60px;
@@ -10,6 +11,8 @@ export const Response = styled.div`
   border-radius: 16px 0px 16px 16px;
   align-self: flex-end;
   color: white;
+  font-family: ${RegularFont};
+  font-size: 15px;
 `;
 
 export const EditOption = styled.div`

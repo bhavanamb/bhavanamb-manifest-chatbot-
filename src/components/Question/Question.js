@@ -9,13 +9,10 @@ function Question(props) {
   const questionNumber = quesConterContext.countQuestion;
   const question = props.currQuestion;
   const currRespIndex = props.currIdx;
-  // const loading = props.isLoading;
-  // const loadingStatus = props.setLoading;
 
   const [loading, setLoading] = useContext(QuesLoadingContext);
 
   const botQuestionArr = question.split("\n");
-  // const [isLoading, setLoading] = useState(true);
 
   useEffect(
     (props) => {

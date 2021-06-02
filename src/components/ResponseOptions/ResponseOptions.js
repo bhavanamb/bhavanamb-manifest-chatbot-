@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ChoiceButton } from "./OptionStyles";
+import { ChoiceButton, ButtonContainer } from "./OptionStyles";
 import { QueCountContext, QuesLoadingContext } from "../ChatBox/ChatBox";
 import PageLoader from "../ChatBox/PageLoader";
 
@@ -11,8 +11,6 @@ function ResponseButton(props) {
   const handleClick = props.handleOptionClick;
   const currRespIndex = props.currIdx;
   const options = props.optionData;
-  // const loading = props.isLoading;
-  // const loadingStatus = props.setLoading;
 
   const [loadingContxt, setLoading] = useContext(QuesLoadingContext);
   // handling the user option click
@@ -30,17 +28,19 @@ function ResponseButton(props) {
     }
     return (
       <>
-        {options.map((responseOption, idx) => {
-          return (
-            <ChoiceButton
-              key={idx}
-              value={responseOption}
-              onClick={handleButtonClick}
-            >
-              {responseOption}
-            </ChoiceButton>
-          );
-        })}
+        <ButtonContainer>
+          {options.map((responseOption, idx) => {
+            return (
+              <ChoiceButton
+                key={idx}
+                value={responseOption}
+                onClick={handleButtonClick}
+              >
+                {responseOption}
+              </ChoiceButton>
+            );
+          })}
+        </ButtonContainer>
       </>
     );
   }

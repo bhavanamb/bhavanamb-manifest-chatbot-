@@ -8,10 +8,10 @@ function SysResponse(props) {
   const questionNumber = quesConterContext.countQuestion;
   const standardResponse = props.standardResponse;
   const currRespIndex = props.currIdx;
-  // const loading = props.isLoading;
-  // const loadingStatus = props.setLoading;
   let resLength = standardResponse.length;
   const [loading, setLoading] = useContext(QuesLoadingContext);
+
+  const botResponseArr = standardResponse.split("\n");
 
   useEffect(
     (props) => {
@@ -21,9 +21,11 @@ function SysResponse(props) {
     },
     [loading]
   );
-  const RenderSystemResponse = () => (
-    <QuestionBubble>{standardResponse}</QuestionBubble>
-  );
+  const RenderSystemResponse = () => {
+    return botResponseArr.map((currResponse, ridx) => {
+      return <QuestionBubble key={ridx}>{currResponse}</QuestionBubble>;
+    });
+  };
   // displaying system standard responses
   if (currRespIndex === questionNumber - 1 && resLength) {
     if (loading) {

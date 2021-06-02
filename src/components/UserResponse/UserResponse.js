@@ -12,15 +12,17 @@ function UserResponse(props) {
   //quesConterContext.counterDispatch("removeQuestion")
 
   const alertUser = () => {
-    const confirmBox = window.confirm(
-      "Are you Sure? \n This will delete your answer and take you to previous step"
-    );
-    if (confirmBox === true) {
-      quesConterContext.counterDispatch({
-        type: "removeQuestion",
-        index: currRespIndex,
-      });
-    }
+    // const confirmBox = window.confirm(
+    //   "Are you Sure? \n This will delete your answer and take you to previous step"
+    // );
+    // if (confirmBox === true) {
+    //   quesConterContext.counterDispatch({
+    //     type: "removeQuestion",
+    //     index: currRespIndex,
+    //   });
+    // }
+    let modalFlag = true;
+    props.displayModal(modalFlag, "removeQuestion", currRespIndex);
   };
   //displaying user responses
   if (currRespIndex < questionNumber) {

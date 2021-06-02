@@ -31,7 +31,15 @@ function DateComponent(props) {
     return (
       <>
         <form onSubmit={handleDateSubmit}>
-          <DatePicker selected={date} onChange={handleDateChange} />
+          <DatePicker
+            selected={date}
+            onChange={handleDateChange}
+            isClearable
+            showMonthDropdown
+            showYearDropdown
+            scrollableMonthYearDropdown
+            dropdownMode="scroll"
+          />
           <ChoiceButton type="submit">Confirm</ChoiceButton>
         </form>
       </>
